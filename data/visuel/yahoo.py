@@ -1,5 +1,4 @@
-import matplotlib.pyplot as plt
-import seaborn as sns
+import pandas as pd
 from datetime import date
 import streamlit as st
 import yfinance as yf
@@ -28,7 +27,9 @@ data = load_data(selected_stock)
 data_load_state.text('Loading data... done!')
 
 st.subheader('Raw data')
-data.columns = data.columns.droplevel(1)
+# yfinance returns MultiIndex columns (field, ticker) — flatten to single level
+if isinstance(data.columns, pd.MultiIndex):
+    data.columns = data.columns.get_level_values(0)
 st.write(data.tail())
 
 def plot_raw_data():
@@ -40,7 +41,10 @@ def plot_raw_data():
 
 plot_raw_data()
 
-df_train = data[['Date', 'Close']].rename(columns={"Date": "ds", "Close": "y"})
+df_train = data[['Date', 'Close']].rename(columns={"Date": "ds", "Close": "y"}).dropna()
+if len(df_train) < 2:
+    st.error("Pas assez de données pour faire une prévision.")
+    st.stop()
 m = Prophet()
 m.fit(df_train)
 future = m.make_future_dataframe(periods=period)
@@ -56,3 +60,4 @@ st.plotly_chart(fig1)
 st.write('Forecast components')
 fig2 = m.plot_components(forecast)
 st.write(fig2)
+
