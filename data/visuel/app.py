@@ -3,8 +3,9 @@ import pandas as pd
 import plotly.express as px
 
 st.set_page_config(layout="wide")
+df = pd.read_csv("C:/Users/requirements/india.csv")
 
-df = pd.read_csv("../db/india.csv")
+#df = pd.read_csv("C:\Users\requirements\india.csv")
 
 list_of_states = list(df["State"].unique())
 list_of_states.insert(0, 'Overall India')
