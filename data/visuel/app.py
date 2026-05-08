@@ -3,7 +3,7 @@ import pandas as pd
 import plotly.express as px
 
 st.set_page_config(layout="wide")
-df = pd.read_csv("C:/Users/requirements/india.csv")
+df = pd.read_csv("india.csv")
 
 #df = pd.read_csv("C:\Users\requirements\india.csv")
 
