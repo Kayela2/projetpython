@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 import streamlit as st
 
@@ -9,7 +10,7 @@ def charger_donnees():
     -df : donnees nettoyees (sans valeurs manquantes)
     """
 
-    chemin = "data/fraude_bancaire_synthetique_final.csv"
+    chemin = os.path.join(os.path.dirname(__file__), "..", "..", "fraude_bancaire_synthetique_final.csv")
     df_brut = pd.read_csv(chemin)
 
     df = df_brut.dropna().reset_index(drop=True)
