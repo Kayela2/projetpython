@@ -48,7 +48,7 @@ export function OnboardingPage() {
     <div className="flex min-h-screen flex-col">
       <Header variant="simple" />
 
-      <main className="flex-1 px-6 py-6">
+      <main className="flex-1 px-4 py-6 sm:px-6">
         <div className="mx-auto max-w-3xl">
           <div className="mb-8 flex items-center justify-between text-sm text-ink-soft">
             <span className="font-heading font-semibold text-terracotta-700 dark:text-terracotta-300">
@@ -58,13 +58,13 @@ export function OnboardingPage() {
           </div>
           <ProgressBar percent={(step / TOTAL_STEPS) * 100} />
 
-          <Card variant="glass" className="mt-8 p-8 md:p-12">
+          <Card variant="glass" className="mt-8 p-5 sm:p-8 md:p-12">
             {step === 1 && <StepProfile />}
             {step === 2 && <StepAcademics />}
             {step === 3 && <StepLifestyle />}
             {step === 4 && <StepFeelings />}
 
-            <div className="mt-12 flex items-center justify-between border-t border-ink/10 pt-8">
+            <div className="mt-8 flex items-center justify-between border-t border-ink/10 pt-6 sm:mt-12 sm:pt-8">
               <Button variant="ghost" onClick={goBack} disabled={isSubmitting}>
                 <ArrowLeftIcon /> {step === 1 ? t.onboarding.previous : t.onboarding.back}
               </Button>
