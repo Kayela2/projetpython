@@ -22,34 +22,26 @@ export function Header({ variant = "full" }: HeaderProps) {
           </span>
         </Link>
 
-        {variant === "full" ? (
-          <nav className="flex items-center gap-2 sm:gap-4 md:gap-6">
-            <Link
-              to="/"
-              className="hidden font-heading font-semibold text-ink transition-colors hover:text-sage-700 md:inline dark:hover:text-sage-300"
-            >
-              {t.header.home}
-            </Link>
-            <a href="#about" className="hidden text-ink-soft transition-colors hover:text-ink md:inline">
-              {t.header.about}
-            </a>
-            <LanguageToggle />
-            <ThemeToggle />
+        <nav className="flex items-center gap-2 sm:gap-4 md:gap-6">
+          <Link
+            to="/"
+            className="font-heading text-sm font-semibold text-ink transition-colors hover:text-sage-700 sm:text-base dark:hover:text-sage-300"
+          >
+            {t.header.home}
+          </Link>
+          <Link to="/#about" className="hidden text-ink-soft transition-colors hover:text-ink md:inline">
+            {t.header.about}
+          </Link>
+          <LanguageToggle />
+          <ThemeToggle />
+          {variant === "full" && (
             <Link to="/onboarding" className="hidden sm:inline-flex">
               <Button variant="primary" className="px-5 py-2.5 text-sm">
                 {t.header.signup}
               </Button>
             </Link>
-          </nav>
-        ) : (
-          <nav className="flex items-center gap-2 sm:gap-4">
-            <a href="#about" className="hidden text-ink-soft transition-colors hover:text-ink sm:inline">
-              {t.header.about}
-            </a>
-            <LanguageToggle />
-            <ThemeToggle />
-          </nav>
-        )}
+          )}
+        </nav>
       </div>
     </header>
   );
