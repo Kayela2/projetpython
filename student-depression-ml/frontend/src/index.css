@@ -1,0 +1,204 @@
+@import "tailwindcss";
+
+/* Class/attribute-based dark mode (not OS-preference-based): toggled by
+   setting data-theme="dark" on <html> from ThemeContext. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+@theme {
+  --font-heading: "Quicksand", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+
+  /* Page background / surfaces — overridden per-theme below */
+  --color-cream: #faf7f0;
+  --color-cream-dark: #f3efe4;
+  --color-surface: #ffffff;
+
+  --color-sage-50: #eef3ec;
+  --color-sage-100: #d9e5d4;
+  --color-sage-200: #c3d7bd;
+  --color-sage-300: #6a9169;
+  --color-sage-400: #6a9169;
+  --color-sage-600: #4c7a5a;
+  --color-sage-700: #3f6844;
+  --color-sage-900: #253a2a;
+
+  --color-terracotta-100: #f6ded1;
+  --color-terracotta-300: #e8a87c;
+  --color-terracotta-500: #c97b5a;
+  --color-terracotta-700: #a65d3b;
+  --color-terracotta-800: #8b5a3c;
+
+  --color-peach-100: #fbe4d8;
+  --color-peach-300: #f3b79a;
+
+  --color-lavender-100: #e6e1f2;
+  --color-lavender-600: #6a5b96;
+
+  /* Text — overridden per-theme below */
+  --color-ink: #2b2a26;
+  --color-ink-soft: #6b6a63;
+
+  --radius-2xl: 1.5rem;
+  --radius-3xl: 2rem;
+}
+
+/* Dark theme: same semantic roles, re-derived for a deep navy background.
+   Because every component consumes these as CSS variables (bg-cream,
+   text-ink, bg-surface, ...) rather than hardcoded colors, this single
+   block re-themes the whole app without touching component markup. The
+   handful of spots where a color is used as *itself* (headings, icon
+   chips) rather than via a semantic role get explicit dark: utility
+   variants in their component instead — see Header, LandingPage, etc. */
+[data-theme="dark"] {
+  --color-cream: #0b0e1a;
+  --color-cream-dark: #12172a;
+  --color-surface: #171d33;
+
+  --color-sage-50: #16261c;
+  --color-sage-100: #1f3327;
+  --color-sage-200: #2a4433;
+  --color-sage-300: #8fd19a;
+  --color-sage-400: #6fbf80;
+  --color-sage-600: #5cb06e;
+  --color-sage-700: #4c9160;
+  /* Hover-darken shade for the primary button — stays dark in both themes
+     on purpose (it's "darker than sage-700", not a text/foreground role). */
+  --color-sage-900: #253a2a;
+
+  --color-terracotta-100: #35281f;
+  --color-terracotta-300: #e0a97e;
+  --color-terracotta-500: #d99468;
+  --color-terracotta-700: #e2926a;
+  --color-terracotta-800: #f0b58a;
+
+  --color-peach-100: #2c2218;
+  --color-peach-300: #dba57b;
+
+  --color-lavender-100: #241f36;
+  --color-lavender-600: #b7a8e8;
+
+  --color-ink: #f2f3f7;
+  --color-ink-soft: #9aa3bd;
+
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 200ms ease, color 200ms ease;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+}
+
+/* Custom range slider — thumb color is set per-instance via --thumb-color */
+input[type="range"].app-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  border-radius: 9999px;
+  background: linear-gradient(
+    to right,
+    var(--thumb-color, var(--color-sage-600)) 0%,
+    var(--thumb-color, var(--color-sage-600)) var(--fill, 50%),
+    var(--color-cream-dark) var(--fill, 50%),
+    var(--color-cream-dark) 100%
+  );
+  outline: none;
+}
+
+input[type="range"].app-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 9999px;
+  background: var(--thumb-color, var(--color-sage-600));
+  border: 3px solid var(--color-surface);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+
+input[type="range"].app-slider::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 9999px;
+  background: var(--thumb-color, var(--color-sage-600));
+  border: 3px solid var(--color-surface);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+
+/* Glassmorphism — frosted glass panels. Needs color behind them (gradient
+   blobs, images) to actually read as "glass"; over a flat background the
+   blur has nothing to bend. Dark theme uses a lower-opacity white tint
+   (matches the classic dark-glass look: a faint white veil, not a wash). */
+.glass {
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow:
+    0 8px 32px -8px rgba(43, 42, 38, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+[data-theme="dark"] .glass {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow:
+    0 8px 32px -8px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+/* Interactive lift — the "premium site" hover feel: elements ease upward
+   and their shadow deepens/softens (more blur, more spread) on hover,
+   settling back down on press. Kept as a class rather than baked into
+   every component so it can be dropped on anything clickable. */
+.lift-hover {
+  transition:
+    transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    border-color 220ms ease;
+}
+
+.lift-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 48px -20px rgba(43, 42, 38, 0.35);
+}
+
+.lift-hover:active {
+  transform: translateY(-1px);
+  transition-duration: 80ms;
+}
+
+[data-theme="dark"] .lift-hover:hover {
+  box-shadow: 0 24px 48px -18px rgba(0, 0, 0, 0.7);
+}
+
+/* Same lift, tuned for small pill/chip controls (less travel, tighter shadow). */
+.lift-hover-sm {
+  transition:
+    transform 180ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 180ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    border-color 180ms ease;
+}
+
+.lift-hover-sm:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px -14px rgba(43, 42, 38, 0.35);
+}
+
+.lift-hover-sm:active {
+  transform: translateY(0);
+  transition-duration: 80ms;
+}
+
+[data-theme="dark"] .lift-hover-sm:hover {
+  box-shadow: 0 14px 28px -12px rgba(0, 0, 0, 0.6);
+}

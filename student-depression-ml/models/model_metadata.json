@@ -1,0 +1,89 @@
+{
+  "target": "Depression",
+  "features": {
+    "numeric": [
+      "Age",
+      "CGPA",
+      "Sleep_Duration",
+      "Study_Hours",
+      "Social_Media_Hours",
+      "Physical_Activity",
+      "Stress_Level"
+    ],
+    "categorical": [
+      "Gender",
+      "Department"
+    ]
+  },
+  "best_params": {
+    "C": 10,
+    "class_weight": "balanced",
+    "gamma": 0.01
+  },
+  "cv_f1_score": 0.3053440882670789,
+  "test_metrics": {
+    "set": "test",
+    "accuracy": 0.7004166666666667,
+    "precision": 0.18880208333333334,
+    "recall": 0.6016597510373444,
+    "f1": 0.2874132804757185
+  },
+  "test_roc_auc": 0.6670023581687388,
+  "sample_size": 12000,
+  "train_size": 9600,
+  "test_size": 2400,
+  "feature_baselines": {
+    "Age": 20.994270833333335,
+    "CGPA": 2.896659375,
+    "Sleep_Duration": 6.990479166666668,
+    "Study_Hours": 4.531416666666667,
+    "Social_Media_Hours": 3.51165625,
+    "Physical_Activity": 74.02135416666667,
+    "Stress_Level": 4.124270833333333,
+    "Gender": "Male",
+    "Department": "Science"
+  },
+  "feature_ranges": {
+    "Age": [
+      18.0,
+      24.0
+    ],
+    "CGPA": [
+      1.65,
+      4.0
+    ],
+    "Sleep_Duration": [
+      3.0,
+      12.0
+    ],
+    "Study_Hours": [
+      0.0,
+      12.1
+    ],
+    "Social_Media_Hours": [
+      0.0,
+      10.0
+    ],
+    "Physical_Activity": [
+      0.0,
+      149.0
+    ],
+    "Stress_Level": [
+      2.0,
+      9.0
+    ]
+  },
+  "categorical_choices": {
+    "Gender": [
+      "Female",
+      "Male"
+    ],
+    "Department": [
+      "Arts",
+      "Business",
+      "Engineering",
+      "Medical",
+      "Science"
+    ]
+  }
+}
